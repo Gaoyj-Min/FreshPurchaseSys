@@ -13,6 +13,7 @@
 <script>
 import Content from './content/MyCon.vue';
 import Menu from './menu/Menu.vue';
+console.log(1);
 export default {
   name:'layout',
   components:{
