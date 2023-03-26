@@ -27,7 +27,7 @@ export default {
     // display: flex;
     .menu{
       width: 200px; 
-      background-color: pink;
+      background-color: #0f2e52;
       position: fixed;
       top: 0;
       left: 0;
@@ -35,7 +35,7 @@ export default {
     }
     .content{
       // flex:1;
-      background-color: hotpink;
+      background-color: #0f2e52;
       margin-left: 200px;
     }
   }
