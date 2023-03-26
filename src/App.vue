@@ -10,7 +10,7 @@ export default {
   name: 'app',
   data(){
     return {
-
+        a:1
     }
   },
   components: {
