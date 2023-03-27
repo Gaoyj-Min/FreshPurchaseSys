@@ -11,8 +11,8 @@ const client = mysql.createConnection({
 })
 
 //封装数据库操作语句 sql语句 参数数组arr  callback成功函数结果
-function sqlFun(sql, arr, callback) {
-    client.query(sql, arr, function (error, result) {
+function sqlFun(sql, arr,callback) {
+    client.query(sql,arr, function (error, result) {
         if (error) {
             console.log('数据库语句错误');
             return;
@@ -21,4 +21,4 @@ function sqlFun(sql, arr, callback) {
     })
 }
 
-module.exports = sqlFun
+module.exports=sqlFun

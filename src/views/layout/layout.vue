@@ -35,7 +35,7 @@ export default {
     }
     .content{
       // flex:1;
-      background-color: #0f2e52;
+      // background-color: #0f2e52;
       margin-left: 200px;
     }
   }
