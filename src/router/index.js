@@ -5,6 +5,9 @@ import login from '@/views/login/login.vue'
 import home from '@/views/layout/content/home/home.vue'
 const ProductList = () => import('@/views/layout/content/product/list.vue')
 const ProductCategory = () => import('@/views/layout/content/product/Category.vue')
+const OrderList = () => import('@/views/layout/content/order/OrderList.vue')
+const OrderSum = () => import('@/views/layout/content/order/Summary.vue')
+const AdList = () => import('@/views/layout/content/advertise/AdList.vue')
 
 const routes = [
     {
@@ -22,6 +25,18 @@ const routes = [
                 path: '/ProductCategory',
                 name: 'ProductCategory',
                 component: ProductCategory
+            },{
+                path: '/OrderList',
+                name: 'OrderList',
+                component: OrderList    
+            },{
+                path: '/OrderSum',
+                name: 'OrderSum',
+                component: OrderSum    
+            },{
+                path: '/AdList',
+                name: 'AdList',
+                component: AdList    
             }
         ]
     },

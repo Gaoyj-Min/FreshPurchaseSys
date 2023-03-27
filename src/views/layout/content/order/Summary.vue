@@ -1,5 +1,5 @@
 <template>
-  <h2>订单列表</h2>
+  <h2>汇总订单</h2>
 </template>
 
 <script>
