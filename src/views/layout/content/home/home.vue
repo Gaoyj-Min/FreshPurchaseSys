@@ -4,32 +4,37 @@
     <div class="header">
       <div class="item">
         总销售额
-        <div class='num'>{{ totalSalesData.saleTotal | num }}</div>
+        <div class="num">{{ totalSalesData.saleTotal | num }}</div>
         <div class="bottom">今日销售额：{{ totalSalesData.sale | num }}</div>
       </div>
-      <div class="item">总访问量
-        <div class='num'>{{ totalSalesData.viewsTotal | num }}</div>
+      <div class="item">
+        总访问量
+        <div class="num">{{ totalSalesData.viewsTotal | num }}</div>
         <div class="bottom">今日访问量：{{ totalSalesData.views | num }}</div>
       </div>
-      <div class="item">总收藏量
-        <div class='num'>{{ totalSalesData.collectTotal | num }}</div>
+      <div class="item">
+        总收藏量
+        <div class="num">{{ totalSalesData.collectTotal | num }}</div>
         <div class="bottom">今日收藏量：{{ totalSalesData.collect | num }}</div>
       </div>
-      <div class="item">总支付量
-        <div class='num'>{{ totalSalesData.payTotal | num }}</div>
+      <div class="item">
+        总支付量
+        <div class="num">{{ totalSalesData.payTotal | num }}</div>
         <div class="bottom">今日支付量：{{ totalSalesData.pay | num }}</div>
       </div>
     </div>
 
     <!--2. 访问数据统计 ----------------->
     <div class="content">
-      <div class="time-info" id='box13'>
+      <div class="time-info" id="box13">
         <div class="title">月销售额</div>
         <div id="charts" style="width: 100%; height: 300px"></div>
       </div>
-      <div class="area" id="box1">比例分配</div>
+      <div class="area" id="box1">
+        <div class="title">产品销售比例</div>
+        <div id="pie" style="width: 100%; height: 300px"></div>
+      </div>
     </div>
-
 
     <!-- 3.  -->
     <!-- 最新内容 -->
@@ -59,7 +64,6 @@
         <div class="text item">
           <el-row>
             <el-col :span="8">
-
               <div>111</div>
             </el-col>
             <el-col :span="8">
@@ -82,72 +86,133 @@
         </div>
       </el-card>
     </div>
-
   </div>
 </template>
 
 <script>
-import * as echarts from 'echarts';
+import * as echarts from "echarts";
 export default {
   data() {
     return {
       totalSalesData: {},
-      totalOrderData: {}
-    }
+      totalOrderData: {},
+    };
   },
   created() {
-    this.totalInfo(),
-      this.orderInfo()
+    this.totalInfo(), this.orderInfo();
   },
   mounted() {
-    var myChart = echarts.init(document.getElementById('charts'));
-    myChart.setOption({
-      title: {
-        text: 'ECharts 入门示例'
-      },
-      tooltip: { trigger : 'axis'},
-      xAxis: {
-        data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-      },
-      yAxis: {},
-      series: [
-        {
-          name: '销量',
-          type: 'bar',
-          data: [5, 20, 36, 10, 10, 20]
-        }
-      ]
-    });
+    this.LineChart();
+    this.PieChart();
+    this.format();
   },
   methods: {
     async totalInfo() {
-      let res = await this.$api.totalInfo()
+      let res = await this.$api.totalInfo();
       this.totalSalesData = res.data.data.list;
     },
     async orderInfo() {
-      let res = await this.$api.OrderInfo()
+      let res = await this.$api.OrderInfo();
       this.totalOrderData = res.data.list;
-    }
+    },
+    async format() {
+      let res = await this.$api.format();
+      console.log("获取图表动态数据----", res.data.result.data.sale_money);
+      
+    },
+    LineChart() {
+      var myChart = echarts.init(document.getElementById("charts"));
+      myChart.setOption({
+        tooltip: { trigger: "axis" },
+        legend: {
+          data: ["销售额", "销量"],
+        },
+        xAxis: {
+          data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+          axisTick: {
+            alignWithLabel: true,
+          },
+        },
+        yAxis: {},
+        series: [
+          {
+            name: "销售额",
+            type: "bar",
+            data: [5, 20, 36, 10, 10, 20],
+          },
+          {
+            name: "销量",
+            type: "line",
+            data: [5, 10, 31, 12, 10, 30],
+            label: {
+              show: "true",
+            },
+            position: "top",
+            itemStyle: {
+              color: "#ff5555",
+            },
+            smooth: true,
+          },
+        ],
+      });
+    },
+    PieChart() {
+      var chartDom = document.getElementById("pie");
+      var myChart = echarts.init(chartDom);
+      var option;
+      option = {
+        title: {
+          left: "center",
+        },
+        tooltip: {
+          trigger: "item",
+        },
+        legend: {
+          orient: "vertical",
+          left: "left",
+        },
+        series: [
+          {
+            name: "产品销售比例",
+            type: "pie",
+            radius: "50%",
+            data: [
+              { value: 1048, name: "审议" },
+              { value: 735, name: "淘宝" },
+              { value: 580, name: "京东" },
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: "rgba(0, 0, 0, 0.5)",
+              },
+            },
+          },
+        ],
+      };
+
+      option && myChart.setOption(option);
+    },
   },
 
   filters: {
     num: (val) => {
-      val = '' + val // 转换成字符串
-      let int = val
-      int = int.split('').reverse().join('') // 翻转整数
-      let temp = '' // 临时变量
+      val = "" + val; // 转换成字符串
+      let int = val;
+      int = int.split("").reverse().join(""); // 翻转整数
+      let temp = ""; // 临时变量
       for (let i = 0; i < int.length; i++) {
-        temp += int[i]
+        temp += int[i];
         if ((i + 1) % 3 === 0 && i !== int.length - 1) {
-          temp += ',' // 每隔三个数字拼接一个逗号
+          temp += ","; // 每隔三个数字拼接一个逗号
         }
       }
-      temp = temp.split('').reverse().join('') // 加完逗号之后翻转
-      return temp // 返回
-    }
-  }
-
-}
+      temp = temp.split("").reverse().join(""); // 加完逗号之后翻转
+      return temp; // 返回
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -243,6 +308,7 @@ export default {
       font-weight: 600;
     }
   }
-}</style>
+}
+</style>
 
 
