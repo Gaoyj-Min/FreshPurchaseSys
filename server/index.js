@@ -1,7 +1,12 @@
-//搭建express服务
+//导入express
 const express = require('express')
+//创建web服务器
 const app = express()
 //post 请求表单数据
+
+
+////////////////////////////////////////////////////////
+
 app.use(express.urlencoded({ extended: true }))
 //资源共享---只有打包的时候再去共享资源 研发共享
 const cors = require('cors')
@@ -20,7 +25,7 @@ const advert = require('./advert')
 app.use('/',router)
 app.use('/order',order)
 app.use('/advert',advert)
-
+/////////////////////////////////////////////////////////
 
 app.listen(7788,()=>{
     console.log(7788);
