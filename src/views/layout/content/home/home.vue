@@ -4,25 +4,25 @@
     <div class="header">
       <div class="item">
         总销售额
-        <div class='num'>{{totalSalesData.saleTotal | num}}</div>
-        <div class="bottom">今日销售额：{{totalSalesData.sale | num}}</div>
+        <div class='num'>{{ totalSalesData.saleTotal | num }}</div>
+        <div class="bottom">今日销售额：{{ totalSalesData.sale | num }}</div>
       </div>
       <div class="item">总访问量
-        <div class='num'>{{totalSalesData.viewsTotal | num}}</div>
-         <div class="bottom">今日访问量：{{totalSalesData.views | num}}</div>
+        <div class='num'>{{ totalSalesData.viewsTotal | num }}</div>
+        <div class="bottom">今日访问量：{{ totalSalesData.views | num }}</div>
       </div>
       <div class="item">总收藏量
-        <div class='num'>{{ totalSalesData.collectTotal | num}}</div>
-         <div class="bottom">今日收藏量：{{totalSalesData.collect | num}}</div>
+        <div class='num'>{{ totalSalesData.collectTotal | num }}</div>
+        <div class="bottom">今日收藏量：{{ totalSalesData.collect | num }}</div>
       </div>
       <div class="item">总支付量
-        <div class='num'>{{totalSalesData.payTotal | num}}</div>
-         <div class="bottom">今日支付量：{{totalSalesData.pay | num}}</div>
+        <div class='num'>{{ totalSalesData.payTotal | num }}</div>
+        <div class="bottom">今日支付量：{{ totalSalesData.pay | num }}</div>
       </div>
     </div>
 
-      <!--2. 访问数据统计 ----------------->
-      <div class="content">
+    <!--2. 访问数据统计 ----------------->
+    <div class="content">
       <div class="time-info" id='box13'>
         <div class="title">月销售额</div>
         <div id="charts" style="width: 100%; height: 300px"></div>
@@ -32,8 +32,8 @@
 
 
     <!-- 3.  -->
-     <!-- 最新内容 -->
-     <div class="home-footer">
+    <!-- 最新内容 -->
+    <div class="home-footer">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
           <span>今日订单</span>
@@ -44,10 +44,10 @@
               <div>111</div>
             </el-col>
             <el-col :span="8">
-             <div>222</div>
+              <div>222</div>
             </el-col>
             <el-col :span="8">
-             <div>333</div>
+              <div>333</div>
             </el-col>
           </el-row>
         </div>
@@ -59,14 +59,14 @@
         <div class="text item">
           <el-row>
             <el-col :span="8">
-              
+
               <div>111</div>
             </el-col>
             <el-col :span="8">
-             <div>222</div>
+              <div>222</div>
             </el-col>
             <el-col :span="8">
-             <div>333</div>
+              <div>333</div>
             </el-col>
           </el-row>
         </div>
@@ -87,39 +87,65 @@
 </template>
 
 <script>
+import * as echarts from 'echarts';
 export default {
   data() {
     return {
-      totalSalesData:{}
+      totalSalesData: {},
+      totalOrderData: {}
     }
   },
   created() {
-    this.totalInfo()
+    this.totalInfo(),
+      this.orderInfo()
+  },
+  mounted() {
+    var myChart = echarts.init(document.getElementById('charts'));
+    myChart.setOption({
+      title: {
+        text: 'ECharts 入门示例'
+      },
+      tooltip: { trigger : 'axis'},
+      xAxis: {
+        data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+      },
+      yAxis: {},
+      series: [
+        {
+          name: '销量',
+          type: 'bar',
+          data: [5, 20, 36, 10, 10, 20]
+        }
+      ]
+    });
   },
   methods: {
     async totalInfo() {
       let res = await this.$api.totalInfo()
-      this.totalSalesData=res.data.data.list;
-      console.log(this.totalSalesData);
+      this.totalSalesData = res.data.data.list;
+    },
+    async orderInfo() {
+      let res = await this.$api.OrderInfo()
+      this.totalOrderData = res.data.list;
     }
   },
 
   filters: {
-   num: (val) => {
-     val = '' + val // 转换成字符串
-     let int = val
-     int = int.split('').reverse().join('') // 翻转整数
-     let temp = '' // 临时变量
-     for (let i = 0; i < int.length; i++) {
-       temp += int[i]
-       if ((i + 1) % 3 === 0 && i !== int.length - 1) {
-         temp += ',' // 每隔三个数字拼接一个逗号
-       }
-     }
-     temp = temp.split('').reverse().join('') // 加完逗号之后翻转
-     return temp // 返回
-   }
- }
+    num: (val) => {
+      val = '' + val // 转换成字符串
+      let int = val
+      int = int.split('').reverse().join('') // 翻转整数
+      let temp = '' // 临时变量
+      for (let i = 0; i < int.length; i++) {
+        temp += int[i]
+        if ((i + 1) % 3 === 0 && i !== int.length - 1) {
+          temp += ',' // 每隔三个数字拼接一个逗号
+        }
+      }
+      temp = temp.split('').reverse().join('') // 加完逗号之后翻转
+      return temp // 返回
+    }
+  }
 
 }
 </script>
@@ -128,9 +154,11 @@ export default {
 .home {
   margin: 10px;
 }
+
 .header {
   display: flex;
   padding-right: 30px;
+
   .item {
     flex: 1;
     height: 100px;
@@ -143,11 +171,13 @@ export default {
     color: #fff;
     // text-align: center;
     position: relative;
+
     .num {
       font-size: 22px;
       margin: 10px;
       color: #fff;
     }
+
     .bottom {
       position: absolute;
       border-top: 1px solid rgb(246, 245, 245);
@@ -159,15 +189,19 @@ export default {
       font-weight: normal;
     }
   }
+
   .item:nth-child(1) {
     background-image: linear-gradient(#df887d, #88554d);
   }
+
   .item:nth-child(2) {
     background-image: linear-gradient(#409eff, #2e556e);
   }
+
   .item:nth-child(3) {
     background-image: linear-gradient(#b54fa8, #713c7a);
   }
+
   .item:nth-child(4) {
     background-image: linear-gradient(#1cd2f1, #39717a);
   }
@@ -179,12 +213,14 @@ export default {
   margin: 20px;
   display: flex;
   height: 320px;
+
   .time-info {
     flex: 2;
     background: #fff;
     margin-right: 20px;
     padding: 10px;
   }
+
   .area {
     flex: 1;
     background: #fff;
@@ -198,15 +234,15 @@ export default {
   display: flex;
   padding-left: 20px;
   margin-bottom: 20px;
+
   .box-card {
     flex: 1;
     margin-right: 30px;
+
     span {
       font-weight: 600;
     }
   }
-}
-
-</style>
+}</style>
 
 
