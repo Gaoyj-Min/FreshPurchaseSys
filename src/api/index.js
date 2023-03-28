@@ -11,5 +11,8 @@ const api = {
     format() {
         return axios.get(base.getFormat);
     },
+    orderList(params) {
+        return axios.get(base.orderList, { params });
+    },
 }
 export default api
