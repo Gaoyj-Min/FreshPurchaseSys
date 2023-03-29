@@ -117,7 +117,7 @@ export default {
     },
     async format() {
       let res = await this.$api.format();
-      console.log("获取图表动态数据----", res.data.result.data.sale_money);
+      // console.log("获取图表动态数据----", res.data.result.data.sale_money);
       
     },
     LineChart() {

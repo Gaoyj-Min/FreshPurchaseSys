@@ -158,6 +158,7 @@ router.get("/home/orderinfo", (req, res) => {
  */
 router.get("/goods/projectList", (req, res) => {
   const page = req.query.page || 1;
+  debugger
   const sqlLen = "select * from project where id";
   sqlFn(sqlLen, null, (data) => {
     let len = data.length;

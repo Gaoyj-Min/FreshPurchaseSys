@@ -7,6 +7,10 @@
 <script>
 export default {
   name: "app",
+  created() {
+      if (this.$router.path !== "/")
+        this.$router.replace("/")
+    }
 };
 </script>
 
