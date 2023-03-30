@@ -1,6 +1,6 @@
 <template>
   <el-menu
-    default-active="/"
+    :default-active="$route.path"
     class="el-menu-vertical-demo is-active"
     background-color="#0f2e52"
     text-color="#fff"
@@ -20,11 +20,11 @@
         <span>产品管理</span>
       </template>
       <el-menu-item-group>
-        <el-menu-item index="ProductList">
+        <el-menu-item index="/ProductList">
           <i class="el-icon-location"></i>
           产品列表
         </el-menu-item>
-        <el-menu-item index="ProductCategory">
+        <el-menu-item index="/ProductCategory">
           <i class="el-icon-location"></i>
           产品分类
         </el-menu-item>
