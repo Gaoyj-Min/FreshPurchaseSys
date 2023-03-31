@@ -84,6 +84,7 @@
 
 <script>
 import bottompage from "@/components/BottomPage.vue";
+import {mapMutations} from 'vuex'
 export default {
   data() {
     return {
@@ -104,8 +105,10 @@ export default {
   },
   mounted() {},
   methods: {
+    ...mapMutations('product',['changerowData','changetitle']),
     addProduct() {
-      console.log("添加商品");
+      // console.log("添加商品");
+      this.changetitle('添加');
       this.$router.push("/Product/addProduct");
       // this.$api.addProduct({ a: 1 });
     },
@@ -114,7 +117,10 @@ export default {
 
     },
     handleEdit(index,data){
-      console.log(a,b);
+      this.changetitle('编辑');
+      this.changerowData(data);
+      this.$router.push('/Product/addProduct');
+      console.log(this.$store);
     },
     changePage(page) {
       // console.log('触发',page);

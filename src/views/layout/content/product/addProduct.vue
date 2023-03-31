@@ -59,7 +59,6 @@ export default {
 
   data() {
     return {
-      title:'商品添加',
       ruleForm: {
         id: '',
         category: "",
@@ -89,9 +88,26 @@ export default {
       },
     };
   },
+  created(){
+    if(this.$store.state.product.title=='编辑'){
+      this.ruleForm=this.$store.state.product.rowData;
+    }
+  },
   components: {
     TreeProduct,
     uploadImg
+  },
+  computed:{
+    title:function(){
+      if(this.$store.state.product.title=='编辑')
+      {
+        return '商品编辑'
+      }
+      else{
+        return '商品添加'
+
+      }
+    }
   },
   methods: {
     treeItem(val){
@@ -113,7 +129,15 @@ export default {
       });
     },
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+      console.log('重置');
+      if(this.$store.state.product.title=='编辑')
+      {
+        this.ruleForm=this.$store.state.product.rowData;
+        console.log(this.ruleForm);
+        console.log(this.$store.state.product.rowData);
+
+      }
+      else this.$refs[formName].resetFields();
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
