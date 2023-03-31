@@ -110,6 +110,12 @@ export default {
       // this.$api.addProduct({ a: 1 });
     },
     batchDelete() {},
+    handleDelete(a,b){
+
+    },
+    handleEdit(index,data){
+      console.log(a,b);
+    },
     changePage(page) {
       // console.log('触发',page);
       this.projectList(page);
