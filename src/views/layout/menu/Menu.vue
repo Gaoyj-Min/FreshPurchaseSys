@@ -1,6 +1,6 @@
 <template>
   <el-menu
-    :default-active="$route.path"
+    :default-active="activePage"
     class="el-menu-vertical-demo is-active"
     background-color="#0f2e52"
     text-color="#fff"
@@ -20,11 +20,11 @@
         <span>产品管理</span>
       </template>
       <el-menu-item-group>
-        <el-menu-item index="/ProductList">
+        <el-menu-item index="/Product/ProductList">
           <i class="el-icon-location"></i>
           产品列表
         </el-menu-item>
-        <el-menu-item index="/ProductCategory">
+        <el-menu-item index="/Product/ProductCategory">
           <i class="el-icon-location"></i>
           产品分类
         </el-menu-item>
@@ -62,9 +62,38 @@
 </template>
 
 <script>
+import { nextTick } from "vue";
 export default {
+  data() {
+    return {
+      activePage: "",
+    };
+  },
+  created() {
+    // this.activePage = this.$route.path;
+    if (this.$route.meta.routeNest) {
+      this.activePage = this.$route.meta.routeNest;
+      // console.log(this.$route.path);
+    } else {
+      this.activePage = this.$route.path;
+    }
+  },
   mounted() {
-    console.log(this.$route);
+    // console.log("挂载");
+    // console.log(this.$route.path);
+  },
+  watch: {
+    $route(to, from) {
+      let { meta, path } = to;
+      if (meta.routeNest) {
+        this.activePage = meta.routeNest;
+        console.log(this.$route.path);
+        console.log(this.activePage);
+      } else {
+        this.activePage = this.$route.path;
+      }
+      // console.log(to, from);
+    },
   },
 };
 </script>

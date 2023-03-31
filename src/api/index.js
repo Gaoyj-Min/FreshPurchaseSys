@@ -14,5 +14,12 @@ const api = {
     projectList(params) {
         return axios.get(base.projectList, { params });
     },
+    addProduct(params) {
+        // console.log({ params });
+        return axios.get(base.addProduct, { params });
+    },
+    selectItemCategoryByParentId(params) {
+        return axios.get(base.selectItemCategoryByParentId, { params });
+    }
 }
 export default api

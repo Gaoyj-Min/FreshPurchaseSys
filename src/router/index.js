@@ -8,6 +8,8 @@ const ProductCategory = () => import('@/views/layout/content/product/Category.vu
 const OrderList = () => import('@/views/layout/content/order/OrderList.vue')
 const OrderSum = () => import('@/views/layout/content/order/Summary.vue')
 const AdList = () => import('@/views/layout/content/advertise/AdList.vue')
+const addProduct = () => import('@/views/layout/content/product/addProduct.vue')
+const Product = () => import('@/views/layout/content/product/index.vue')
 
 const routes = [
     {
@@ -17,26 +19,42 @@ const routes = [
             {
                 path: '/',
                 component: home,
-            }, {
-                path: '/ProductList',
-                name: 'ProductList',
-                component: ProductList
-            }, {
+            },
+            {
+                path: '/Product',
+                name: 'Product',
+                component: Product,
+                children: [
+                    {
+                        path: 'ProductList',
+                        name: 'ProductList',
+                        component: ProductList,
+
+                    },
+                    {
+                        path: 'addProduct',
+                        name: 'addProduct',
+                        component: addProduct,
+                        meta: { routeNest: '/Product/ProductList' }
+                    }
+                ]
+            },
+            , {
                 path: '/ProductCategory',
                 name: 'ProductCategory',
                 component: ProductCategory
-            },{
+            }, {
                 path: '/OrderList',
                 name: 'OrderList',
-                component: OrderList    
-            },{
+                component: OrderList,
+            }, {
                 path: '/OrderSum',
                 name: 'OrderSum',
-                component: OrderSum    
-            },{
+                component: OrderSum
+            }, {
                 path: '/AdList',
                 name: 'AdList',
-                component: AdList    
+                component: AdList
             }
         ]
     },

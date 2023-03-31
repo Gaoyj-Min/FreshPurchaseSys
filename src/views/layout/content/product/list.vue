@@ -16,8 +16,20 @@
         </el-form-item>
       </el-form>
       <div class="pro-button">
-        <el-button type="warning" icon="el-icon-plus" size="small">添加商品</el-button>
-        <el-button type="danger" size="small" icon="el-icon-delete">批量删除</el-button>
+        <el-button
+          type="warning"
+          icon="el-icon-plus"
+          size="small"
+          @click="addProduct"
+          >添加商品</el-button
+        >
+        <el-button
+          type="danger"
+          size="small"
+          icon="el-icon-delete"
+          @click="batchDelete"
+          >批量删除</el-button
+        >
       </div>
     </div>
     <div class="product-list">
@@ -41,24 +53,37 @@
 
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" type="primary"
-              icon="el-icon-edit">编辑</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)"
-              icon="el-icon-delete">删除</el-button>
+            <el-button
+              size="mini"
+              @click="handleEdit(scope.$index, scope.row)"
+              type="primary"
+              icon="el-icon-edit"
+              >编辑</el-button
+            >
+            <el-button
+              size="mini"
+              type="danger"
+              @click="handleDelete(scope.$index, scope.row)"
+              icon="el-icon-delete"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
-      <div style="padding:10px;">
-        <bottompage :pagesize='pagesize' :total='total' @currentPage='changePage' @totalpage="totalpage"></bottompage>
+      <div style="padding: 10px">
+        <bottompage
+          :pagesize="pagesize"
+          :total="total"
+          @currentPage="changePage"
+          @totalpage="totalpage"
+        ></bottompage>
       </div>
-
     </div>
-
   </div>
 </template>
 
 <script>
-import bottompage from '@/components/BottomPage.vue'
+import bottompage from "@/components/BottomPage.vue";
 export default {
   data() {
     return {
@@ -68,18 +93,23 @@ export default {
       },
       tableData: [],
       pagesize: 0,
-      total: 0
+      total: 0,
     };
   },
   components: {
-    bottompage
+    bottompage,
   },
   created() {
     this.projectList();
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
+    addProduct() {
+      console.log("添加商品");
+      this.$router.push("/Product/addProduct");
+      // this.$api.addProduct({ a: 1 });
+    },
+    batchDelete() {},
     changePage(page) {
       // console.log('触发',page);
       this.projectList(page);
@@ -88,16 +118,17 @@ export default {
       this.total = total;
     },
     onSubmit() {
-      console.log("submit!");
+      // console.log("submit!");
     },
     async projectList(page) {
       let res = await this.$api.projectList({ page });
-      console.log(res.data);
+      // console.log(res.data);
       this.tableData = res.data.data;
       this.pagesize = res.data.pageSize;
       this.total = res.data.total;
-    }
+    },
   },
+
 };
 </script>
 

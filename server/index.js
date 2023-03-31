@@ -22,11 +22,11 @@ const order = require('./order')
 //广告
 const advert = require('./advert')
 
-app.use('/',router)
-app.use('/order',order)
-app.use('/advert',advert)
+app.use('/', router)
+app.use('/order', order)
+app.use('/advert', advert)
 /////////////////////////////////////////////////////////
 
-app.listen(7788,()=>{
+app.listen(7788, () => {
     console.log(7788);
 })
