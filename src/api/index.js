@@ -20,6 +20,12 @@ const api = {
     },
     selectItemCategoryByParentId(params) {
         return axios.get(base.selectItemCategoryByParentId, { params });
+    },
+    upload(params){
+        return axios.get(base.upload, { params });
+    },
+    insertTbItem(params){
+        return axios.get(base.insertTbItem, { params });
     }
 }
 export default api

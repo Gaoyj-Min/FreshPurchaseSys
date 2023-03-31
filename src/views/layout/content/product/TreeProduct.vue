@@ -16,8 +16,9 @@ export default {
   },
   methods: {
     clickHandle(data, node) {
-      console.log("data", data, "node", node);
+      // console.log("data", data, "node", node);
       //   this.$emit("sendTreeData", data);
+      this.$emit('treeItem',data.name)
     },
     loadNode(node, resolve) {
       if (node.level === 0) {

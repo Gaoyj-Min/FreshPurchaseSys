@@ -11,8 +11,9 @@ const base = {
     orderList: "/api/order/list",//订单列表 page
     projectList: "/api/goods/projectList",
     addProduct: "/api/goods/item/insertTbItem",
-    selectItemCategoryByParentId: '/api/goods/itemCategory/selectItemCategoryByParentId'
+    selectItemCategoryByParentId: '/api/goods/itemCategory/selectItemCategoryByParentId',
+    insertTbItem:'/api/goods/item/insertTbItem'
 }
 
-
+export const uploadUrl='/api/upload'
 export default base
