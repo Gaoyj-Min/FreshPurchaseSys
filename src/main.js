@@ -16,4 +16,7 @@ Vue.use(VueRouter);
 new Vue({
   render: h => h(App),
   router: router,
+  mounted(){
+    console.log(this.$router);
+  }
 }).$mount('#app')
